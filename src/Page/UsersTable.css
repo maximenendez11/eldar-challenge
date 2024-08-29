@@ -1,0 +1,14 @@
+.userTableApp {
+    text-align: center;
+    background-color: #1976d2;
+    height: 100vh;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.userTableSection {
+    text-align: center;
+    background-color: #ffffff;
+    width: fit-content;
+}
