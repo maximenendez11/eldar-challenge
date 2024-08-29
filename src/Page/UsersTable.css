@@ -1,14 +1,36 @@
 .userTableApp {
-    text-align: center;
-    background-color: #1976d2;
     height: 100vh;
     align-items: center;
-    display: flex;
-    justify-content: center;
 }
 
 .userTableSection {
-    text-align: center;
     background-color: #ffffff;
-    width: fit-content;
 }
+
+@media (max-width: 1060px) {
+    .userTableSection {
+        width: auto;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 1060px) {
+    .userTableApp {
+        justify-content: center;
+        background-color: #1976d2;
+        display: flex;
+        text-align: center;
+    }
+
+    .userTableSection {
+        width: auto;
+    }
+}
+
+
+
+
+
+ 

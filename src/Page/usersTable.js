@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import "./UsersTable.css";
 import Container from "@mui/material/Container";
-import { Button, TextField, Box, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
@@ -12,7 +12,7 @@ const UsersTable = () => {
   const [newEmployee, setNewEmployee] = useState({ name: "", email: "", phone: "", username: "" });
   const [editUser, setEditUser] = useState(null);
   const [openEdit, setOpenEdit] = useState(false);
-  const [openAdd, setOpenAdd] = useState(false); // Nuevo estado para controlar el diálogo de añadir
+  const [openAdd, setOpenAdd] = useState(false);
 
   const simulatedData = [
     { id: 1, name: "Max", email: "maxi@gmail.com", phone: "1137028383", username: "Buenos Aires" },
@@ -103,41 +103,38 @@ const UsersTable = () => {
     { field: "email", headerName: "Email", width: 200 },
     { field: "phone", headerName: "Phone Number", width: 150 },
     { field: "username", headerName: "Username", width: 150 },
-    {
-      field: "actions",
-      headerName: "Actions",
-      width: 200,
-      renderCell: (params) => (
-        <>
-          {user.role === "admin" && (
-            <>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => handleOpenEdit(params.row)}
-                style={{ marginRight: "10px" }}
-              >
-                Edit
-              </Button>
-            </>
-          )}
-        </>
-      ),
-    },
+    ...(user.role === "admin" ? [
+      {
+        field: "actions",
+        headerName: "Actions",
+        width: 200,
+        renderCell: (params) => (
+          <>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleOpenEdit(params.row)}
+              style={{ marginRight: "10px" }}
+            >
+              Edit
+            </Button>
+          </>
+        ),
+      },
+    ] : []),
   ];
-
   return (
     <div className="userTableApp">
       <section className="userTableSection">
-      <h1>Grilla de empleados</h1>
-      <h2>Bienvenido usuario: {user.username}. Su rol es de: {user.role}</h2>
+      <h1 className="userTableText">Grilla de empleados</h1>
+      <h2 className="userTableText">Bienvenido usuario: {user.username}. Su rol es de: {user.role}</h2>
 
       {user.role === "admin" && (
-        <Button variant="contained" color="primary" onClick={handleOpenAdd} style={{ marginBottom: "20px" }}>
+        <Button variant="contained" color="primary" onClick={handleOpenAdd} style={{ marginBottom: "20px" }} className="userTableText">
           Añadir Empleado
         </Button>
       )}
-
+  
       <Container>
         <div style={{ height: "auto", width: "100%", marginTop: "20px", backgroundColor: "white" }}>
           <DataGrid rows={data} columns={columns} pageSize={5} rowsPerPageOptions={[10]} checkboxSelection disableSelectionOnClick />
@@ -237,8 +234,8 @@ const UsersTable = () => {
           </Button>
         </DialogActions>
       </Dialog>
+    
       </section>
-     
     </div>
   );
 };
